@@ -247,25 +247,24 @@ public class RandomPassword3
       else if (word.startsWith("-u") || (mswinFlag && word.startsWith("/u")))
       {
         /* This option is followed by a font point size that will be used for
-        buttons, dialogs, labels, etc. */
+        GUI buttons, dialogs, labels, etc. */
 
-        int size = -1;            // default value for font point size
-        try                       // try to parse remainder as unsigned integer
+        try                       // try to parse remainder as an integer
         {
-          size = Integer.parseInt(word.substring(2));
+          commonFontSize = Integer.parseInt(word.substring(2));
         }
         catch (NumberFormatException nfe) // if not a number or bad syntax
         {
-          size = -1;              // set result to an illegal value
+          commonFontSize = -1;    // set result to an illegal value
         }
-        if ((size < 10) || (size > 99))
+        if ((commonFontSize < 10) || (commonFontSize > 99))
         {
           System.err.println("Dialog font size must be from 10 to 99: "
             + args[i]);           // notify user of our arbitrary limits
           showHelp();             // show help summary
           System.exit(EXIT_FAILURE); // exit application after printing help
         }
-        commonFontSize = outputFontSize = size; // use same size for both
+        outputFontSize = commonFontSize; // same for output text area
       }
 
       else if (word.startsWith("-w") || (mswinFlag && word.startsWith("/w")))
